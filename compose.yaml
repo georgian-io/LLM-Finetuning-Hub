@@ -1,0 +1,18 @@
+services:
+  mlflow:
+    container_name: georgian
+    image: anthonyprinaldi/georgian-finetune:latest
+    command:
+      - ${MODEL}
+      - ${TASK}
+      - ${PYTHON_ARGS}
+    volumes:
+      - .:/code
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
